@@ -58,7 +58,7 @@ if(isset($_POST['choruts_login']) && isset($_POST['choruts_password']))
             ?>
                         
             Nom d'utilisateur<br/>
-            <input type="text" name="choruts_login"/><br/>
+            <input type="text" name="choruts_login" <?php echo isset($username) ? "value=\"$username\"" : "";?>/><br/>
             Mot de passe<br/>
             <input type="password" name="choruts_password"/><br/>
             <input type="submit" value="Connexion"/><br/>
