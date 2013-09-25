@@ -27,7 +27,10 @@ if(isset($_POST['choruts_login']) && isset($_POST['choruts_password']))
         $ip = $_SERVER['REMOTE_ADDR']; //Evite le vol de sessionkey
         $expire = time() + 2* 3600;
         
-        mysqli_query($dblink, "INSERT INTO auth_session(sessionkey, ip, user_id, expire) VALUES (\"$sessionkey\", \"$ip\", $user_id, $expire)");        
+        mysqli_query($dblink, "INSERT INTO auth_session(sessionkey, ip, user_id, expire) VALUES (\"$sessionkey\", \"$ip\", $user_id, $expire)"); 
+        
+        //Tout est ok, on redirige
+        header("Location: ".$_GET['appli']);       
     }
     else
     {
@@ -47,7 +50,7 @@ if(isset($_POST['choruts_login']) && isset($_POST['choruts_password']))
     <body>
         <h1>Service de connexion centrale</h1>
         
-        <form method="post" action="auth.php?appli=<?php echo $_GET['appli'] ?>">
+        <form method="post" action="auth.php?appli=<?php echo urlencode($_GET['appli']) ?>">
         
             <?php
             if(isset($error_msg))
@@ -57,7 +60,7 @@ if(isset($_POST['choruts_login']) && isset($_POST['choruts_password']))
             Nom d'utilisateur<br/>
             <input type="text" name="choruts_login"/><br/>
             Mot de passe<br/>
-            <input type="text" name="choruts_password"/><br/>
+            <input type="password" name="choruts_password"/><br/>
             <input type="submit" value="Connexion"/><br/>
         </form>
     </body>
