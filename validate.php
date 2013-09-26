@@ -19,6 +19,7 @@ $dblink = mysqli_connect($config['mysql_host'], $config['mysql_user'], $config['
 
 $ticket = mysqli_escape_string($dblink, $ticket);
 $result = mysqli_query($dblink, "SELECT user FROM `auth_user` INNER JOIN auth_ticket ON id = userid WHERE ticket=\"$ticket\"");
+mysqli_query($dblink, "DELETE FROM auth_ticket WHERE ticket=\"$tichet\"");
 
 if(mysqli_num_rows($result) == 1)
 {
