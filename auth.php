@@ -22,15 +22,16 @@ if(isset($_POST['choruts_login']) && isset($_POST['choruts_password']))
     {
         $row = mysqli_fetch_assoc($login);
         $user_id = $row['id'];
-        $sessionkey = uniqid("", true);
-        setcookie("choruts_auth", $sessionkey, time() + 2 * 3600, "/", false, true);
+        $sessionkey = uniqid("chrouts-session");
+        setcookie("choruts_auth", $sessionkey, time() + 2 * 3600, null, null, false, true);
         $ip = $_SERVER['REMOTE_ADDR']; //Evite le vol de sessionkey
         $expire = time() + 2* 3600;
         
         mysqli_query($dblink, "INSERT INTO auth_session(sessionkey, ip, user_id, expire) VALUES (\"$sessionkey\", \"$ip\", $user_id, $expire)"); 
         
         //Tout est ok, on redirige
-        header("Location: ".$_GET['appli']);       
+        header("Location: ".$_GET['appli']);  
+        exit();     
     }
     else
     {
