@@ -23,7 +23,7 @@ if(isset($_POST['choruts_login']) && isset($_POST['choruts_password']))
         $row = mysqli_fetch_assoc($login);
         $user_id = $row['id'];
         $sessionkey = uniqid("chrouts-session");
-        setcookie("choruts_auth", $sessionkey, time() + 2 * 3600, null, null, false, true);
+        setcookie("choruts_auth", $sessionkey, time() + 2 * 3600, "/", null, false, true);
         $ip = $_SERVER['REMOTE_ADDR']; //Evite le vol de sessionkey
         $expire = time() + 2* 3600;
         
